@@ -79,7 +79,7 @@ studentInfo.addEventListener('submit', e=> {
    'Accept': 'application/json'
   },
   body: JSON.stringify({
-   percentage: null
+   percentage: editinput.value
   })
   })//end of fetch})
 } console.log(typeof(studentId));
