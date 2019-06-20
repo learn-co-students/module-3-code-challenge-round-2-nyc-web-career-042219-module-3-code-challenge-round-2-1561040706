@@ -70,6 +70,7 @@ courseDetail.addEventListener('click', e=> {
 })//end of addEventListener
 
 studentInfo.addEventListener('submit', e=> {
+  e.preventDefault()
 
   let editinput = document.querySelector('#edit-input')
   fetch(`https://warm-shore-17060.herokuapp.com/api/v1/users/12/courses/${studentId}`, {
