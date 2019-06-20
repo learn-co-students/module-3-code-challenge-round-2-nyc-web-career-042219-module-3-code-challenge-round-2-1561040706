@@ -100,6 +100,6 @@ studentList.addEventListener('click', e =>{
 
 // TO DO As a user, when looking at the details of a course. I can edit a student's percentage. Clicking the 'Edit' button will save any changes added to the description in the database
 
-// did have time to make a patch request but i can do this 100%. create an addEventListener for the studentForm for a SUBMIT. grab the values of the studentForm, you can access inputs of a form like an array. studentform[0].value set it to a variable. fetch method PATCH use the variable in the body of the patch
+// didnt have time to make a patch request but i can do this 100%. create an addEventListener for the studentForm for a SUBMIT. grab the values of the studentForm, you can access inputs of a form like an array. studentform[0].value set it to a variable. fetch method PATCH use the variable in the body of the patch
 
 });
