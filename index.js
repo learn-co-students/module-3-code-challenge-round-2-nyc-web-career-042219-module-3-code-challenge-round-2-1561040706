@@ -6,12 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
   const studentUlTag = document.querySelector("#student-list-tag")
   const studentForm = document.querySelector("#student-form")
 
-  let studentArray = []
+  let studentList = null;
+  let studentId = null;
 
   fetch("https://warm-shore-17060.herokuapp.com/api/v1/users/9/courses/")
   .then(response => response.json())
   .then(data => {
-    console.log((data))
+    //console.log((data))
     displayData(data)
 
   })
@@ -46,9 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
       fetch(`https://warm-shore-17060.herokuapp.com/api/v1/users/9/courses/${fetchID}`)
       .then(response => response.json())
       .then(data => {
-        studentArray = data["students"]
-        console.log(studentArray);
         displayStudents(data["students"])
+        studentList = (data.students)
+        //console.log(Array.isArray(studentList));
+        //console.log(studentArray["students"]);
       }) // close of fetch
 
 
@@ -70,44 +72,88 @@ document.addEventListener("DOMContentLoaded", function() {
     event.preventDefault()
     //console.log(parseInt(event.target.id));
 
-      let studentId;
+
 
     if (event.target.className === "liTag") {
        studentId = parseInt(event.target.id)
 
-      studentForm.innerHTML = `
-      <form>
-        Name :
-        <br><br>
-        Class Year:
-        <br><br>
-        Percentage:
-        <br><br>
-        <input type="text" >
-        <br>
+       console.log(Array.isArray(studentList));
+       let studentObject = studentList.find(element => {
+         return element.id === studentId
+       })
+       console.log(studentObject);
 
+
+
+       //console.log(individualStudent);
+
+      studentForm.innerHTML = `
+      <form data-id="${studentObject.name}">
+        Name: ${studentObject.name}
         <br><br>
-        <input type="submit" value="Submit">
+        Class Year: ${studentObject.class_year}
+        <br><br>
+        Percentage: ${studentObject.percentage}
+        <br><br>
+        <input id="input-for-grade" type="text" >
+
+        <input  type="submit" value="Submit">
       </form>
       `
 
-      let input = document.querySelector()
+    } // conditional close
+
+      //let input = document.querySelector()
+
+      studentForm.addEventListener("submit", event => {
+        event.preventDefault()
 
 
-    } //
-      fetch(`https://warm-shore-17060.herokuapp.com/api/v1/users/1/students/${studentId}`, { method:
+        let gradeInput = document.querySelector("#input-for-grade")
+        //console.log(typeof gradeInput.value);
 
-        'PATCH',
-        headers: {
-           'Content-Type': 'application/json',
-           'Accept':'application/json'
-       },
-       body: JSON.stringify({
-         percentage: ${input.value}
-       }) // close of body
+        fetch(`https://warm-shore-17060.herokuapp.com/api/v1/users/9/students/${studentId}`, { method:
+
+          'PATCH',
+          headers: {
+             'Content-Type': 'application/json',
+             'Accept':'application/json'
+         },
+         body: JSON.stringify({
+           percentage: `${parseInt(gradeInput.value)}`
+         }) // close of body
+       }) // close of fetch
+       .then(response => response.json())
+       .then(data => {
+         updateFormAndArray(data)
+         console.log(data);
+
+       })
+
+       function updateFormAndArray(arg) {
+
+         studentForm.innerHTML = `
+
+         <form data-id="${arg.name}">
+           Name: ${arg.name}
+           <br><br>
+           Class Year: ${arg.class_year}
+           <br><br>
+           Percentage: ${arg.percentage}
+           <br><br>
+           <input id="input-for-grade" type="text" >
+           <input  type="submit" value="Submit">
+         </form>
+         `
+
+       }
+
+
       })
 
-    }
+
+
+
 
 
 
