@@ -87,7 +87,7 @@ studentList.addEventListener('click', e =>{
     .then(studentData =>
       console.log(studentData)
 
-      // ran out of time but in here I would append to the studentForm.innerHTML the info of the student along, similar to how it was done with the course Detail, or tiny form with a input and button as well. the input will have interpolated the student id to use for the patch
+      // ran out of time but in here I would append to the studentForm.innerHTML the info of the student along, similar to how it was done with the course Detail, tiny form with a input and button as well. the input will have interpolated the student id to use for the patch
 
     )
 
